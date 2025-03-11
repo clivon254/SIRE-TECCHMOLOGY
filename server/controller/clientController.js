@@ -1,5 +1,5 @@
 
-import Client from "../model/clientController.js"
+import Client from "../model/clientModel.js"
 import { errorHandler } from "../utils/error.js"
 
 

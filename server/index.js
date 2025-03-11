@@ -6,6 +6,7 @@ import "dotenv/config"
 import authRouter from "./router/authRouter.js"
 import userRouter from "./router/userRouter.js"
 import clientRouter from "./router/clientRouter.js"
+import projectRouter from "./router/projectRouter.js"
 
 
 
@@ -38,6 +39,11 @@ app.use('/api/user', userRouter)
 
 
 app.use('/api/client', clientRouter)
+
+
+app.use('/api/project', projectRouter)
+
+
 
 
 
