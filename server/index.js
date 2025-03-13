@@ -7,6 +7,7 @@ import authRouter from "./router/authRouter.js"
 import userRouter from "./router/userRouter.js"
 import clientRouter from "./router/clientRouter.js"
 import projectRouter from "./router/projectRouter.js"
+import quatationRouter from "./router/quatationRouter.js"
 
 
 
@@ -43,6 +44,8 @@ app.use('/api/client', clientRouter)
 
 app.use('/api/project', projectRouter)
 
+
+app.use('/api/quatation', quatationRouter)
 
 
 

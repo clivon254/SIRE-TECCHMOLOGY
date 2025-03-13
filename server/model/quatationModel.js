@@ -12,7 +12,17 @@ const quatationSchema = new mongoose.Schema(
 
         description:{type:Date , required:true},
 
-        items:{type }
+        items:{type:Array, required:true },
+
+        paymentSchedule:{type:Date , required:true},
+
+        additionalCost:{type:String ,required:true },
+
+        termsAndCondition:{type:String , required:true},
+
+        warranty:{type:String ,required:true},
+
+        url:{type:String , required:true}
     },
     {
         timestamps:true
