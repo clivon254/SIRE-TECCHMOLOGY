@@ -8,6 +8,7 @@ import { generateRandomNumber } from "../utils/verify.js"
 import Client from "../model/clientModel.js"
 
 
+
 const storage = getStorage(app)
 
 
@@ -43,16 +44,9 @@ export const generateQuatation = async (req,res,next) => {
         doc.on('data', buffers.push.bind(buffers))
 
         // ADD PDF CONTENT
-
-        // logo to top center
-        doc.image('../assests/SIRELOGO.png',{
-            fit:[150, 200],
-            align: 'center',
-            valign: 'center'
-        })
-
+      
+ 
         doc.moveDown(2)
-
 
         // quatation title
         doc.fontSize(20).text('Web development Quotation', {align :'center'})
@@ -65,14 +59,14 @@ export const generateQuatation = async (req,res,next) => {
         doc.fontSize(14).text(`Quatation Number : QT-${number}`)
         doc.text(`Date : ${new Date().toLocaleDateString()}`)
         doc.text(`To : ${clientel.name || 'N/A' }`)
-        doc.text(`Email: ${client.email || 'N/A'}`)
+        doc.text(`Email: ${clientel.email || 'N/A'}`)
         doc.text(`Phone : ${clientel.phone || `N/A`}`)
 
 
         doc.moveDown()
 
         // description
-        doc.fontSize(14).text('Description')
+        doc.fontSize(14).text(`${description}`)
 
 
         // Items table
@@ -154,14 +148,54 @@ export const generateQuatation = async (req,res,next) => {
         doc.text(`$${total.toFixed(2)}`, totalValueX, y);
 
 
-        // Additional cost
-        doc.text(`${additionalCost}`)
+        // Reset font
+        doc.font('Helvetica');
 
-        // payment schedule
-        doc.text(`${paymentSchedule}`)
+        // Add space after totals
+        y += 40;
 
-        // warant
-        doc.text(`${warranty}`)
+        // Additional cost section
+        doc.fontSize(14).text('Additional Costs:', 50, y);
+        y += 20;
+
+        doc.fontSize(12).text(`${additionalCost}`, 70, y, {
+            width: 480
+        });
+
+        // Add space before next section
+        y += 40;
+
+        // Payment schedule section
+        doc.fontSize(14).text('Payment Schedule:', 50, y);
+        y += 20;
+        doc.fontSize(12).text(`${paymentSchedule}`, 70, y, {
+            width: 480
+        });
+
+        // Add space before next section
+        y += 40;
+
+        // Warranty section
+        doc.fontSize(14).text('Warranty:', 50, y);
+        y += 20;
+        doc.fontSize(12).text(`${warranty}`, 70, y, {
+            width: 480
+        });
+
+        // Add space before next section
+        y += 40;
+
+        // Terms and conditions section
+        doc.fontSize(14).text('Terms and Conditions:', 50, y);
+        y += 20;
+        doc.fontSize(12).text(`${termsAndCondition}`, 70, y, {
+            width: 480
+        });
+
+        // After adding all these sections, check if we need a new page before signature
+        if (doc.y > 700) {
+            doc.addPage();
+        }
 
         
 

@@ -8,13 +8,13 @@ const quatationSchema = new mongoose.Schema(
 
         client:{type:mongoose.Schema.Types.ObjectId , ref:'Client'},
 
-        validUnitil:{type:Date , required:true},
+        validUntil:{type:Date , required:true},
 
-        description:{type:Date , required:true},
+        description:{type:String, required:true},
 
         items:{type:Array, required:true },
 
-        paymentSchedule:{type:Date , required:true},
+        paymentSchedule:{type:String , required:true},
 
         additionalCost:{type:String ,required:true },
 

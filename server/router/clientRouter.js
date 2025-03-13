@@ -15,7 +15,7 @@ clientRouter.post('/add-client', verifyToken ,addClient)
 clientRouter.get('/get-client/:clientId', getClient)
 
 
-clientRouter.get('/get-clients', getClients)
+clientRouter.get('/get-clients',verifyToken , getClients)
 
 
 clientRouter.put('/update-client/:clientId', verifyToken , updateClient)

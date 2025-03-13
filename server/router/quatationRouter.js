@@ -11,10 +11,10 @@ const quatationRouter = express.Router()
 quatationRouter.post('/generate-quatation', verifyToken, generateQuatation)
 
 
-quatationRouter.post('/get-quatation/:quatationId', getQuatation)
+quatationRouter.get('/get-quatation/:quatationId', getQuatation)
 
 
-quatationRouter.post('/get-quatations', getQuatations)
+quatationRouter.get('/get-quatations', verifyToken , getQuatations)
 
 
 quatationRouter.put('/update-quatation/:quatationId', verifyToken , updateQuatation)

@@ -11,11 +11,18 @@ export const addClient = async (req,res,next) => {
 
     if(!req.user.isAdmin)
     {
-        return next(errorHandler(401,"You are not add client"))
+        return next(errorHandler(401,"You are not allowed add client"))
     }
 
     try
     {
+
+        const existingClient = await Client.findOne({email})
+
+        if(existingClient)
+        {
+            return next(errorHandler(400,"The client already exists"))
+        }
 
         const newClient = new Client({
             name,email,phone,additional,whatsapp
