@@ -17,6 +17,10 @@ const invoiceSchema = new mongoose.Schema({
 
     items:{type:Array , required:true},
 
+    paymentStatus:{type:Boolean , default:false},
+
+    url:{type:String , required:true},
+
     description:{type:String , required:true}
 },
 {

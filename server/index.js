@@ -8,6 +8,7 @@ import userRouter from "./router/userRouter.js"
 import clientRouter from "./router/clientRouter.js"
 import projectRouter from "./router/projectRouter.js"
 import quatationRouter from "./router/quatationRouter.js"
+import invoiceRouter from "./router/invoiceRouter.js"
 
 
 
@@ -48,6 +49,7 @@ app.use('/api/project', projectRouter)
 app.use('/api/quatation', quatationRouter)
 
 
+app.use('/api/invoice', invoiceRouter)
 
 
 
