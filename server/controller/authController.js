@@ -140,8 +140,8 @@ export const forgotPassword = async (req,res,next) => {
         var transporter = nodemailer.createTransport({
             service:'gmail',
             auth:{
-                user:process.env.JWT_SECRETE,
-                pass:process.env.JWT_SECRETE
+                user:process.env.AUTH_USER,
+                pass:process.env.AUTH_PASS
             }
         })
 

@@ -44,6 +44,8 @@ export default function App() {
 
       <main className="w-full  min-h-screen">
 
+          <Toaster richColors/>
+          
           <Routes>
 
             <Route element={<LayOut/>}>

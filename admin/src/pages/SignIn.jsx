@@ -11,6 +11,7 @@ import axios from "axios"
 import { StoreContext } from '../context/store'
 import Loading from '../components/Loading'
 import {Alert} from "flowbite-react"
+import {toast} from "sonner"
 
 
 export default function SignIn() {
@@ -43,6 +44,7 @@ export default function SignIn() {
 
     try
     {
+
       dispatch(signInStart())
 
       const res = await axios.post(url + "/api/auth/sign-in",formData)
@@ -57,6 +59,8 @@ export default function SignIn() {
 
         localStorage.setItem("token", res.data.token)
 
+        toast.success("signed in successfully")
+
       }
 
     }
@@ -64,7 +68,7 @@ export default function SignIn() {
     {
 
       console.log(error.message)
-      
+
       if(error.response)
       {
         const errorMessage = error.response.data.message 
@@ -177,7 +181,7 @@ export default function SignIn() {
             {/* forgot password */}
             <span className="label">
 
-              <Link to="/forgot-password">Forgot password</Link>
+              <Link to="/forgot-password" className="text-secondary hover:underline">Forgot password ?</Link>
 
             </span>
 
