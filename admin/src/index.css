@@ -1,4 +1,49 @@
 
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.section
+{
+    @apply w-full p-5
+}
+
+.title
+{
+    @apply text-xl/9 font-bold
+}
+
+
+.title2
+{
+    @apply text-3xl/9 font-bold
+}
+
+.title3
+{
+    @apply text-5xl/9 font-bold
+}
+
+.label
+{
+    @apply block text-sm/6 font-medium text-gray-900 
+}
+
+
+.input
+{
+    @apply block rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6
+}
+
+
+.button
+{
+    @apply flex w-full justify-center rounded-md bg-primary px-3 py-1.5 font-semibold text-white shadow-md hover:bg-primary focus-visible:outline-2 focus-visible:outline-primary cursor-pointer disabled:bg-primary/40 disabled:cursor-not-allowed
+}
+
+
