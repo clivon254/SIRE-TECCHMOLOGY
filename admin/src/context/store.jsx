@@ -10,10 +10,22 @@ export const StoreContext = createContext(null)
 export default function StoreContextProvider(props) {
 
 
-  const [openDelete,setOpenDelete] = useState()
+  const url = "http://localhost:2700"
+
+  const [token, setToken] = useState("")
+
+  const [open ,setOpen] = useState(false)
+
+  const [openDelete,setOpenDelete] = useState(false)
+
+
+  
 
 
   const contextValue = {
+    url,
+    token,setToken,
+    open,setOpen,
     openDelete , setOpenDelete
   }
   
