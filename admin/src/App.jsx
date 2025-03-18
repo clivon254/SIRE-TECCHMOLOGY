@@ -8,6 +8,9 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import DashSidebar from './components/DashSidebar'
+import Header from './components/Header'
+import Profile from './pages/Profile'
 
 
 
@@ -20,9 +23,27 @@ const LayOut = () => {
 
     currentUser?.isAdmin ? 
 
-    <div className="">
+    <div className="w-full h-screen flex flex-col">
       
-      <Outlet />
+      <Header/>
+
+      <div className="w-full h-full flex lg:divide-x-2 divide-slate-500">
+
+        {/* sidebar */}
+        <div className="hidden lg:flex w-[20%] overflow-y-auto">
+
+          <DashSidebar/>
+
+        </div>
+
+        {/* main side */}
+        <div className="w-full lg:w-[80%] overflow-y-scroll overflow-hidden">
+
+          <Outlet />
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -45,12 +66,14 @@ export default function App() {
       <main className="w-full  min-h-screen">
 
           <Toaster richColors/>
-          
+
           <Routes>
 
             <Route element={<LayOut/>}>
 
                 <Route path="/" element={<Dashboard/>}/>
+
+                <Route path="/profile" element={<Profile/>}/>
 
             </Route>
 
