@@ -182,7 +182,7 @@ export const resetPassword = async (req,res,next) => {
 
     const {password ,confirmPassword} = req.body
 
-    if(!password || confirmPassword || password === "" || confirmPassword === "")
+    if(!password || !confirmPassword || password === "" || confirmPassword === "")
     {
         return next(errorHandler(400 ,"Please fill all the feilds"))
     }
@@ -191,7 +191,7 @@ export const resetPassword = async (req,res,next) => {
     {
         const decodedToken = jwt.verify(token , process.env.JWT_SECRETE)
 
-        const user = await User.findOne(decodedToken.id)
+        const user = await User.findById(decodedToken.id)
 
         if(!user)
         {

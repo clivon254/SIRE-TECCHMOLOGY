@@ -30,7 +30,7 @@ export default function SignIn() {
 
   
   // handleChange
-  const handleChange = (e) => {
+  const handleChange = (e)  => {
 
     setFormData({...formData , [e.target.name]:e.target.value})
 
