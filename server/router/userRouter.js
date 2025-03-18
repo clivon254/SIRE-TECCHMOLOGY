@@ -15,10 +15,10 @@ userRouter.get('/get-user/:userId', getUser)
 userRouter.get('/get-users', getUsers)
 
 
-userRouter.get('/update-user/:userId', verifyToken, updateUser)
+userRouter.put('/update-user/:userId', verifyToken, updateUser)
 
 
-userRouter.get('/delete-user/:userId', verifyToken , deleteUser)
+userRouter.delete('/delete-user/:userId', verifyToken , deleteUser)
 
 
 

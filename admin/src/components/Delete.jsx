@@ -14,11 +14,11 @@ export default function Delete({product,item,handleDelete}) {
 
     <div className="w-full h-full flex items-center justify-center fixed top-0 left-0 bg-black/50 backdrop-blur-sm">
 
-        <div className="space-y-5 p-4 w-[80%] lg:w-[40%] 2xl:w-[30%] 2xl:mx-auto shadow-md transition-all duration-500 ease-in rounded-md">
+        <div className="space-y-5 p-4 w-[80%] lg:w-[40%] 2xl:w-[30%] 2xl:mx-auto shadow-md transition-all duration-500 ease-in rounded-md bg-white">
 
             <HiExclamationCircle size={50} className="mx-auto"/>
 
-            <h2 className="">
+            <h2 className="text-center">
                 Are you sure you want to delete {product},{item} ?
             </h2>
 

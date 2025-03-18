@@ -81,7 +81,7 @@ const userSlice = createSlice({
 
         },
 
-        signOutSuccess:() => {
+        signOutSuccess:(state) => {
 
             state.currentUser = null
 
