@@ -10,7 +10,7 @@ export default function DashSidebar() {
 
   return (
 
-    <div className="">
+    <div className="w-full p-3">
 
       <nav className="flex flex-col gap-y-3">
 

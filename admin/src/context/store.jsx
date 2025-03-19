@@ -3,6 +3,8 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { MdHome, MdOutlineDashboard } from 'react-icons/md'
 import {FiUsers} from "react-icons/fi"
+import axios from "axios"
+
 
 
 
@@ -28,12 +30,52 @@ export default function StoreContextProvider(props) {
       icon:<MdOutlineDashboard/>
     },
     {
-      path:'/client',
+      path:'/clients',
       title:"Clients",
       icon:<FiUsers/>
     },
 
   ])
+
+
+  const [clients , setClients] = useState([])
+
+  const [clientsLoading ,setClientsLoading] = useState(false)
+
+  const [clientsError , setClientsError] = useState(false)
+
+
+  // fetchClients
+  const fetchClients = async () => {
+
+    try
+    {
+      setClientsLoading(true)
+
+      setClientsError(false)
+
+      const res = await axios.get(url + "/api/client/get-clients",{headers:{token}})
+
+      if(res.data.success)
+      {
+        setClientsLoading(false)
+
+        setClients(res.data.clients)
+
+      }
+
+    }
+    catch(error){
+
+      setClientsError(true)
+
+      setClientsLoading(false)
+
+      console.log(error.message)
+
+    }
+
+  }
   
   useEffect(() => {
 
@@ -44,12 +86,25 @@ export default function StoreContextProvider(props) {
 
   },[token])
 
+
+  useEffect(() => {
+
+    fetchClients()
+
+  },[])
+
+  console.log(clients)
+
   const contextValue = {
     url,
     token,setToken,
     open,setOpen,
     openDelete , setOpenDelete,
-    Navlinks, setNavlinks
+    Navlinks, setNavlinks,
+    clients, setClients,
+    clientsLoading, setClientsLoading,
+    clientsError, setClientsError,
+    fetchClients,
   }
   
 

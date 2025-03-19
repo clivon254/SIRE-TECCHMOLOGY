@@ -11,6 +11,10 @@ import ResetPassword from './pages/ResetPassword'
 import DashSidebar from './components/DashSidebar'
 import Header from './components/Header'
 import Profile from './pages/Profile'
+import Clients from './pages/Clients'
+import AddClients from './pages/AddClients'
+import UpdateClients from './pages/UpdateClients'
+import ClientPage from './pages/ClientPage'
 
 
 
@@ -74,6 +78,15 @@ export default function App() {
                 <Route path="/" element={<Dashboard/>}/>
 
                 <Route path="/profile" element={<Profile/>}/>
+
+                <Route path="/clients" element={<Clients/>}/>
+
+                <Route path="/add-client" element={<AddClients/>}/>
+
+                <Route path="/update-client/:clientId" element={<UpdateClients/>}/>
+
+                <Route path="/client/:clientId" element={<ClientPage/>}/>
+
 
             </Route>
 

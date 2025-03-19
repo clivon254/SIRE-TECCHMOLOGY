@@ -46,6 +46,11 @@
     @apply flex w-full justify-center rounded-md bg-primary px-3 py-1.5 font-semibold text-white shadow-md hover:bg-primary focus-visible:outline-2 focus-visible:outline-primary cursor-pointer disabled:bg-primary/60 disabled:cursor-not-allowed
 }
 
+.button2
+{
+    @apply flex w-full justify-center rounded-md bg-blue px-3 py-1.5 font-semibold text-white shadow-md hover:bg-blue focus-visible:outline-2 focus-visible:outline-primary cursor-pointer disabled:bg-primary/60 disabled:cursor-not-allowed
+}
+
 .active-nav-link
 {
     @apply flex items-center gap-x-3 font-semibold bg-red-50 text-primary rounded-md
@@ -57,6 +62,16 @@
     @apply flex items-center gap-x-3 font-semibold
 }
 
+
+.tabler
+{
+    @apply table-auto overflow-x-scroll md:mx-auto
+}
+
+.loading
+{
+    @apply bg-slate-300 animate-pulse block
+}
 
 
 /* ************************* LOADING  START ************************* */
