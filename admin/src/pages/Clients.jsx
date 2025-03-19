@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom'
 import { StoreContext } from '../context/store'
 import { Table } from "flowbite-react"
 import Error from '../components/Error'
-import { getInitials } from '../utils'
+import { getInitials, getProducts } from '../utils'
 import { FaEdit, FaRegEye, FaStopCircle, FaTrashAlt } from "react-icons/fa"
 import Delete from '../components/Delete'
 import axios from 'axios'
 import { toast } from 'sonner'
+import Pagination from '../components/Pagination'
 
 
 
@@ -29,6 +30,20 @@ export default function Clients() {
     const [clientLoading ,setClientLoading] = useState(false)
 
     const [clientError , setClientError] = useState(false)
+
+    const [filteredCients ,setFilteredClients] = useState(clients)
+
+
+    // handleSearch
+    const handleSearch = (e) => {
+
+        const searchClient = e.target.value 
+
+        const filtered = clients?.filter((client) => client.email.toLowerCase().includes(searchClient.toLowerCase()))
+
+        setFilteredClients(filtered)
+
+    }
 
 
     // fetchClient
@@ -61,6 +76,7 @@ export default function Clients() {
         
     }
 
+
     // handleDelete
     const handleDelete = async () => {
 
@@ -88,11 +104,32 @@ export default function Clients() {
 
     }
 
+    
+    // PAGINATION
+    const [page ,setPage] = useState(1)
+
+    const [limit ,setLimit] = useState(5)
+
+    const finalClients = getProducts(page,limit,filteredCients)
+
+    const finalLength = finalClients?.length
+
+    const totalPage = Math.ceil(finalLength / limit)
+
+
+
     useEffect(() => {
 
         fetchClient()
 
     },[clientToDelete])
+
+    
+    useEffect(() => {
+
+        setFilteredClients(clients)
+
+    },[])
 
   return (
 
@@ -131,6 +168,7 @@ export default function Clients() {
                     type="text" 
                     className="input max-w-sm w-full" 
                     placeholder="enter email . . . . "
+                    onChange={handleSearch}
                 />
 
                 <button className="button2 max-w-md">
@@ -164,11 +202,11 @@ export default function Clients() {
 
                         <>
 
-                            {clients.length > 0 ? (
+                            {finalClients.length > 0 ? (
 
                                 <>
 
-                                    {clients.map((client,index) => (
+                                    {finalClients.map((client,index) => (
 
                                         <Table.Body key={index}>
 
@@ -214,7 +252,7 @@ export default function Clients() {
 
                                                             <Link to={`/update-client/${client._id}`}>
 
-                                                                <FaEdit/>
+                                                                <FaEdit size={20}/>
                                                             
                                                             </Link>
 
@@ -250,7 +288,7 @@ export default function Clients() {
                                     <Table.Row>
 
                                         <Table.Cell colSpan={6} className="text-center text-xl">
-                                            There are no clients yet
+                                            There are no clients found !!!1
                                         </Table.Cell>
 
                                     </Table.Row>
@@ -338,6 +376,8 @@ export default function Clients() {
             </div>
 
         </div>
+
+        <Pagination totalPage={totalPage} page={page} setPage={setPage} limit={limit} siblings={1}/>
 
         {openDelete && (
 
