@@ -14,7 +14,7 @@ projectRouter.post('/add-project', verifyToken ,addProject)
 projectRouter.get('/get-project/:projectId', getProject)
 
 
-projectRouter.get('/getProjects', getProjects)
+projectRouter.get('/get-projects',verifyToken, getProjects)
 
 
 projectRouter.put(`/update-project/:projectId`,verifyToken, updateProjects)

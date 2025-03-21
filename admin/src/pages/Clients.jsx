@@ -17,7 +17,7 @@ import Pagination from '../components/Pagination'
 
 export default function Clients() {
 
-    const {url,clients,setClients,clientsLoading,clientsError,fetchClients,openDelete,setOpenDelete} = useContext(StoreContext)
+    const {url,token,clients,setClients,clientsLoading,clientsError,fetchClients,openDelete,setOpenDelete} = useContext(StoreContext)
 
     const [loader, setLoader] = useState([
         {},{},{},{},{}
@@ -82,9 +82,9 @@ export default function Clients() {
 
         try
         {
-            const res = await axios.delete(url + `/api/client/delete-client/${clientToDelete}`)
+            const res = await axios.delete(url + `/api/client/delete-client/${clientToDelete}`,{headers:{token}})
 
-            if(res.data.suucess)
+            if(res.data.success)
             {
                 setOpenDelete(false)
 
@@ -94,6 +94,7 @@ export default function Clients() {
 
                 toast.error(`${client?.name} is deleted successfully`)
 
+                fetchClients()
             }
 
         }
@@ -124,7 +125,7 @@ export default function Clients() {
 
     },[clientToDelete])
 
-    
+
     useEffect(() => {
 
         setFilteredClients(clients)
@@ -288,7 +289,7 @@ export default function Clients() {
                                     <Table.Row>
 
                                         <Table.Cell colSpan={6} className="text-center text-xl">
-                                            There are no clients found !!!1
+                                            There are no clients found !!!
                                         </Table.Cell>
 
                                     </Table.Row>

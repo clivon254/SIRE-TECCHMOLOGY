@@ -4,6 +4,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { MdHome, MdOutlineDashboard } from 'react-icons/md'
 import {FiUsers} from "react-icons/fi"
 import axios from "axios"
+import { GoProject } from 'react-icons/go'
 
 
 
@@ -27,13 +28,18 @@ export default function StoreContextProvider(props) {
     {
       path:'/',
       title:"Dashboard",
-      icon:<MdOutlineDashboard/>
+      icon:<MdOutlineDashboard size={20}/>
     },
     {
       path:'/clients',
       title:"Clients",
-      icon:<FiUsers/>
+      icon:<FiUsers size={20}/>
     },
+    {
+      path:'/projects',
+      title:"Projects",
+      icon:<GoProject size={20}/>
+    }
 
   ])
 
@@ -43,6 +49,13 @@ export default function StoreContextProvider(props) {
   const [clientsLoading ,setClientsLoading] = useState(false)
 
   const [clientsError , setClientsError] = useState(false)
+
+  const [projects , setProjects] = useState([])
+
+  const [projectsLoading , setProjectsLoading] = useState(false)
+
+  const [projectsError , setProjectsError] = useState(false)
+
 
 
   // fetchClients
@@ -77,6 +90,37 @@ export default function StoreContextProvider(props) {
 
   }
   
+  // fetchProjects
+  const fetchProjects = async () => {
+
+    try
+    {
+      setProjectsLoading(true)
+
+      setProjectsError(false)
+
+      const res = await axios.get(url + "/api/project/get-projects", {headers:{token}})
+
+      if(res.data.success)
+      {
+        setProjects(res.data.projects)
+
+        setProjectsLoading(false)
+      }
+
+    }
+    catch(error)
+    {
+      setProjectsLoading(false)
+
+      setProjectsError(false)
+
+      console.log(error.message)
+    }
+
+  }
+
+
   useEffect(() => {
 
     if(localStorage.getItem("token"))
@@ -91,9 +135,13 @@ export default function StoreContextProvider(props) {
 
     fetchClients()
 
+    fetchProjects()
+
   },[])
 
   console.log(clients)
+
+  console.log(projects)
 
   const contextValue = {
     url,
@@ -105,6 +153,10 @@ export default function StoreContextProvider(props) {
     clientsLoading, setClientsLoading,
     clientsError, setClientsError,
     fetchClients,
+    projects,setProjects,
+    projectsLoading, setProjectsLoading,
+    projectsError, setProjectsError,
+    fetchProjects
   }
   
 

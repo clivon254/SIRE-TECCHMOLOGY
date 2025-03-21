@@ -15,6 +15,10 @@ import Clients from './pages/Clients'
 import AddClients from './pages/AddClients'
 import UpdateClients from './pages/UpdateClients'
 import ClientPage from './pages/ClientPage'
+import Projects from './pages/Projects'
+import AddProjects from './pages/AddProjects'
+import ProjectPage from './pages/ProjectPage'
+import UpdateProject from './pages/UpdateProject'
 
 
 
@@ -87,6 +91,13 @@ export default function App() {
 
                 <Route path="/client/:clientId" element={<ClientPage/>}/>
 
+                <Route path="/projects" element={<Projects/>}/>
+
+                <Route path="/add-project" element={<AddProjects/>}/>
+
+                <Route path="/update-project/:projectId" element={<UpdateProject/>}/>
+
+                <Route path="/project/:projectId" element={<ProjectPage/>}/>
 
             </Route>
 

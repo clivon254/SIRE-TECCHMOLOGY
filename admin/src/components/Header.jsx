@@ -5,9 +5,10 @@ import LOGOO from "../assets/SIRELOGO.png"
 import { StoreContext } from '../context/store'
 import {MdClose,MdMenu} from "react-icons/md"
 import { Avatar, Dropdown } from 'flowbite-react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import DashSidebar from './DashSidebar'
+import { signOutSuccess } from '../redux/user/userSlice'
 
 
 export default function Header() {
@@ -16,10 +17,19 @@ export default function Header() {
 
     const {currentUser} = useSelector(state => state.user)
 
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
     // handleSignout
     const handleSignOut = () => {
 
+        localStorage.removeItem("token")
 
+        dispatch(signOutSuccess())
+
+        navigate('/')
+        
     }
 
   return (
