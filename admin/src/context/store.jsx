@@ -5,7 +5,7 @@ import { MdHome, MdOutlineDashboard } from 'react-icons/md'
 import {FiUsers} from "react-icons/fi"
 import axios from "axios"
 import { GoProject } from 'react-icons/go'
-
+import { ImFilesEmpty } from "react-icons/im";
 
 
 
@@ -39,6 +39,11 @@ export default function StoreContextProvider(props) {
       path:'/projects',
       title:"Projects",
       icon:<GoProject size={20}/>
+    },
+    {
+      path:'/quatations',
+      title:"Quatations",
+      icon:<ImFilesEmpty size={20}/>
     }
 
   ])
@@ -55,6 +60,12 @@ export default function StoreContextProvider(props) {
   const [projectsLoading , setProjectsLoading] = useState(false)
 
   const [projectsError , setProjectsError] = useState(false)
+
+  const [quatations , setQuatations] = useState([])
+
+  const [quatationsLoading , setQuatationsLoading] = useState(false)
+
+  const [quatationsError , setQuatationsError] = useState(false)
 
 
 
@@ -120,6 +131,36 @@ export default function StoreContextProvider(props) {
 
   }
 
+  // fetchQuatations
+  const fetchQuatations = async () => {
+
+    try
+    {
+      setQuatationsLoading(true)
+
+      setQuatationsError(false)
+
+      const res = await axios.get(url + "/api/quatation/get-quatations", {headers:{token}})
+
+      if(res.data.success)
+      {
+        setQuatations(res.data.quatations)
+
+        setQuatationsLoading(false)
+      }
+
+    }
+    catch(error)
+    {
+      setQuatationsLoading(false)
+
+      setQuatationsError(false)
+
+      console.log(error.message)
+    }
+
+  }
+
 
   useEffect(() => {
 
@@ -131,6 +172,8 @@ export default function StoreContextProvider(props) {
       fetchProjects()
 
       fetchProjects()
+
+      fetchQuatations()
       
     }
 
@@ -166,7 +209,11 @@ export default function StoreContextProvider(props) {
     projects,setProjects,
     projectsLoading, setProjectsLoading,
     projectsError, setProjectsError,
-    fetchProjects
+    fetchProjects,
+    quatations,setQuatations,
+    quatationsLoading, setQuatationsLoading,
+    quatationsError, setQuatationsError,
+    fetchQuatations,
   }
   
 

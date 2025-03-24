@@ -54,7 +54,7 @@
 .active-nav-link
 {
     @apply flex items-center gap-x-3 font-semibold bg-red-50 text-primary rounded-md
-    py-3 px-1
+    py-3 px-2
 }
 
 .nav-link

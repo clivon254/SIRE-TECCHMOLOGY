@@ -12,22 +12,23 @@ export default function DashSidebar() {
 
     <div className="w-full p-3">
 
-      <nav className="flex flex-col gap-y-3">
+      <nav className="flex flex-col gap-y-5">
 
-          {Navlinks.map((nav,index) => (
+        {Navlinks.map((nav,index) => (
 
-            <NavLink
-              key={index}
-              to={`${nav.path}`}
-              onClick={() => setOpen(false)}
-              className={({isActive}) => isActive ? "active-nav-link" :"nav-link"}
-            >
+          <NavLink
+            key={index}
+            to={`${nav.path}`}
+            onClick={() => setOpen(false)}
+            className={({isActive}) => isActive ? "active-nav-link" :"nav-link"}
+          >
 
-              <span className="">{nav.icon}</span> {nav.title}
+            <span className="">{nav.icon}</span> {nav.title}
 
-            </NavLink>
+          </NavLink>
 
-          ))}
+        ))}
+
       </nav>
 
     </div>

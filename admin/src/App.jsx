@@ -19,6 +19,10 @@ import Projects from './pages/Projects'
 import AddProjects from './pages/AddProjects'
 import ProjectPage from './pages/ProjectPage'
 import UpdateProject from './pages/UpdateProject'
+import Quatations from './pages/Quatations'
+import AddQuatations from './pages/AddQuatations'
+import UpdateQuatations from './pages/UpdateQuatations'
+import QuatationPage from './pages/QuatationPage'
 
 
 
@@ -98,6 +102,14 @@ export default function App() {
                 <Route path="/update-project/:projectId" element={<UpdateProject/>}/>
 
                 <Route path="/project/:projectId" element={<ProjectPage/>}/>
+
+                <Route path="/quatations" element={<Quatations/>}/>
+
+                <Route path="/add-quatation" element={<AddQuatations/>}/>
+
+                <Route path="/update-quatation/:quatationId" element={<UpdateQuatations/>}/>
+
+                <Route path="/quatation/:quatationId" element={<QuatationPage/>}/>
 
             </Route>
 
