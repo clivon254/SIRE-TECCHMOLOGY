@@ -125,7 +125,13 @@ export default function StoreContextProvider(props) {
 
     if(localStorage.getItem("token"))
     {
+
       setToken(localStorage.getItem("token"))
+
+      fetchProjects()
+
+      fetchProjects()
+      
     }
 
   },[token])
@@ -139,9 +145,13 @@ export default function StoreContextProvider(props) {
 
   },[])
 
+
   console.log(clients)
 
   console.log(projects)
+
+  console.log(token)
+
 
   const contextValue = {
     url,

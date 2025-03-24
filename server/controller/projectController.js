@@ -3,6 +3,7 @@ import Project from "../model/projectModel.js"
 import { errorHandler } from "../utils/error.js"
 
 
+
 export const addProject = async (req,res,next) => {
 
     if(!req.user.isAdmin)
@@ -18,6 +19,8 @@ export const addProject = async (req,res,next) => {
         const newProject = new Project({
           title,description,client,url,startDate,dueDate,tools
         })
+
+        newProject.save()
 
         res.status(200).json({success:true , newProject})
 
@@ -63,7 +66,9 @@ export const getProjects = async (req,res,next) => {
 
     try
     {
-        const projects = await Project.find().sort({_id:-1})
+        const projects = await Project.find()
+                                      .sort({_id:-1})
+                                      .populate({path:"client"})
 
         res.status(200).json({success:true , projects})
 
@@ -120,6 +125,8 @@ export const updateProjects = async (req,res,next) => {
     }
 
 }
+
+
 
 export const deleteProjects = async (req,res,next) => {
     

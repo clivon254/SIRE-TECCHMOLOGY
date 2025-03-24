@@ -7,12 +7,17 @@ import { IoMdAdd } from 'react-icons/io'
 import { Table } from 'flowbite-react'
 import Delete from '../components/Delete'
 import Error from '../components/Error'
+import { FaEdit, FaStreetView, FaTrashAlt } from 'react-icons/fa'
+import axios from "axios"
+
+
+
 
 export default function Projects() {
 
     const {url,token,projects,projectsLoading,projectsError,fetchProjects,openDelete,setOpenDelete} = useContext(StoreContext)
 
-    const [loader , setLoader] = useState()
+    const [loader , setLoader] = useState([{},{},{},{}])
 
     const [project ,setProject] = useState({})
 
@@ -44,9 +49,9 @@ export default function Projects() {
         }
         catch(error)
         {
-            setClientError(true)
+            setProjectError(true)
 
-            setClientLoading(false)
+            setProjectLoading(false)
 
             console.log(error.message)
         }
@@ -63,7 +68,7 @@ export default function Projects() {
 
    useEffect(() => {
 
-    fetchProject()
+        fetchProject()
 
    },[projectToDelete])
 
@@ -88,7 +93,7 @@ export default function Projects() {
 
                 <Link to="/add-project" className="flex items-center gap-x-3">
 
-                    <IoMdAdd size={24}/> Add clients
+                    <IoMdAdd size={24}/> Add Projects
 
                 </Link>
                 
@@ -133,13 +138,114 @@ export default function Projects() {
 
                 </Table.Head>
 
-                {!projectsLoading && !projectsError && (<></>)}
+                {!projectsLoading && !projectsError && (
+
+                    <>
+
+                        {projects.length > 0 ? 
+                        (
+                            <>
+
+                                {projects.map((project,index) => (
+
+                                    <Table.Body key={index}>
+
+                                        <Table.Row>
+
+                                            <Table.Cell>{index+1}.</Table.Cell>
+
+                                            <Table.Cell className="truncate ">
+                                                {project?.title}
+                                            </Table.Cell>
+
+                                            <Table.Cell className="text-nowrap">
+                                                {project?.client?.name}
+                                            </Table.Cell>
+
+                                            <Table.Cell className="text-nowrap">
+                                                {project?.startDate}
+                                            </Table.Cell>
+
+                                            <Table.Cell className="text-nowrap">
+                                                {project?.dueDate}
+                                            </Table.Cell>
+
+                                            <Table.Cell>
+
+                                                <div className="flex items-center gap-x-3">
+
+                                                    <span className="">
+
+                                                        <Link to={`/project/${project._id}`}>
+
+                                                         <FaStreetView size={20}/>
+
+                                                        </Link>
+
+                                                    </span>
+
+                                                    <span className="text-blue">
+
+                                                        <Link to={`/update-project/${project._id}`}>
+
+                                                            <FaEdit size={20}/>
+
+                                                        </Link>
+
+                                                    </span>
+
+                                                    <span 
+                                                        className="text-primary"
+                                                        onClick={() => {
+
+                                                            setProjectToDelete(project._id)
+
+                                                            setOpenDelete(true)
+
+                                                        }}
+                                                    >
+                                                        <FaTrashAlt size={20}/>
+                                                    </span>
+
+                                                </div>
+
+                                            </Table.Cell>
+
+                                        </Table.Row>
+
+                                    </Table.Body>
+
+                                ))}
+
+                            </>
+
+                        ) 
+                        : 
+                        (
+                            <Table.Body>
+
+                                <Table.Row>
+
+                                    <Table.Cell colSpan={6} className="text-center text-xl font-semibold">
+
+                                        There are not projects found !!!!
+
+                                    </Table.Cell>
+
+                                </Table.Row>
+
+                            </Table.Body>
+                        )}
+
+                    </>
+
+                )}
 
                 {projectsLoading && !projectsError && (
 
                     <>
 
-                        {loader.map((load,index) => (
+                        {loader?.map((load,index) => (
 
                             <Table.Body key={index}>
 
