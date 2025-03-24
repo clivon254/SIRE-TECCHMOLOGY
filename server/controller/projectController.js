@@ -17,7 +17,7 @@ export const addProject = async (req,res,next) => {
     {
 
         const newProject = new Project({
-          title,description,client,url,startDate,dueDate,tools
+          title,description,client,url,startDate,dueDate,tools,
         })
 
         newProject.save()
@@ -35,7 +35,7 @@ export const addProject = async (req,res,next) => {
 
 export const getProject = async (req,res,next) => {
 
-    const {projectId} = req.body
+    const {projectId} = req.params
 
     try
     {

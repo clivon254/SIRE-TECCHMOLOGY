@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')).render(
 
       <StoreContextProvider>
 
-        <App />
+          <App />
         
       </StoreContextProvider>
 

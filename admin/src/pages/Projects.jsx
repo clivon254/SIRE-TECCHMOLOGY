@@ -7,6 +7,7 @@ import { IoMdAdd } from 'react-icons/io'
 import { Table } from 'flowbite-react'
 import Delete from '../components/Delete'
 import Error from '../components/Error'
+import {toast} from "sonner"
 import { FaEdit, FaStreetView, FaTrashAlt } from 'react-icons/fa'
 import axios from "axios"
 
@@ -15,7 +16,7 @@ import axios from "axios"
 
 export default function Projects() {
 
-    const {url,token,projects,projectsLoading,projectsError,fetchProjects,openDelete,setOpenDelete} = useContext(StoreContext)
+    const {url,token,projects,setProjects,projectsLoading,projectsError,fetchProjects,openDelete,setOpenDelete} = useContext(StoreContext)
 
     const [loader , setLoader] = useState([{},{},{},{}])
 
@@ -26,6 +27,8 @@ export default function Projects() {
     const [projectError ,setProjectError] = useState(false)
 
     const [projectToDelete ,setProjectToDelete] = useState("")
+
+    const [filteredProjects ,setFilteredProjects] = useState(projects)
 
 
     // fetchProject
@@ -59,11 +62,35 @@ export default function Projects() {
     } 
 
    //handleSearch
-   const handleSearch = () => {}
+   const handleSearch = (e) => {
+
+    const searchProject = e.target.value 
+
+    const filtered = projects?.filter((project) => project.title.toLowerCase().includes(searchProject.toLowerCase()))
+
+    setFilteredProjects(filtered)
+
+}
 
 
    //handleDelete
-   const handleDelete = () => {} 
+   const handleDelete = async () => {
+
+    const res = await axios.delete(url + `/api/project/delete-project/${projectToDelete}`,{headers:{token}})
+
+    if(res.data.success)
+    {
+        setOpenDelete(false)
+
+        setProjects((prev) => 
+            prev.filter((project) => project._id !== projectToDelete)
+        ) 
+
+        fetchProjects()
+
+    }
+
+   } 
 
 
    useEffect(() => {
@@ -107,7 +134,7 @@ export default function Projects() {
                 <input 
                     type="text" 
                     className="input max-w-sm w-full" 
-                    placeholder="enter email . . . . "
+                    placeholder="enter title . . . . "
                     onChange={handleSearch}
                 />
 
@@ -142,11 +169,11 @@ export default function Projects() {
 
                     <>
 
-                        {projects.length > 0 ? 
+                        {filteredProjects.length > 0 ? 
                         (
                             <>
 
-                                {projects.map((project,index) => (
+                                {filteredProjects.map((project,index) => (
 
                                     <Table.Body key={index}>
 
@@ -318,7 +345,7 @@ export default function Projects() {
 
         {openDelete && (
 
-            <Delete />
+            <Delete product="Project" item={project?.title} handleDelete={handleDelete}/>
 
         )}
 
