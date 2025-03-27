@@ -236,7 +236,9 @@ export const getQuatations = async (req,res,next) => {
 
     try
     {
-        const quatations = await Quatation.find().sort({_id:-1})
+        const quatations = await Quatation.find()
+                                          .sort({_id:-1})
+                                          .populate({path:"client"})
 
         res.status(200).json({success:true , quatations})
 

@@ -162,7 +162,7 @@ export default function Clients() {
 
             </header>
 
-            {/* search */}
+            {/* search */}``
             <div className="flex justify-between items-center gap-x-5">
 
                 <input 
@@ -263,7 +263,7 @@ export default function Clients() {
                                                             className=""
                                                             onClick={() => {
                                                                 setOpenDelete(true)
-                                                                setClientToDelete(client._id)
+                                                                setClientToDelete(client?._id)
                                                             }}
                                                         >
                                                             <FaTrashAlt className="text-primary" size={20}/>
