@@ -48,7 +48,7 @@ export default function AddQuatations() {
       ...prevState,
       [name]: newValue,
     }));
-    
+
   }
 
   // handleSubmit
@@ -198,7 +198,6 @@ export default function AddQuatations() {
 
         {/* Items */}
         <div className="flex flex-col gap-y-2">
-          
           
           {/* table */}
           {formData?.items?.length > 0 && (

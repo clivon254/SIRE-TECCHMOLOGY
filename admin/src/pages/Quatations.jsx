@@ -193,7 +193,7 @@ export default function Quatations() {
 
                                                         <span className="">
 
-                                                            <Link to={`/update-quatation/${quatation?.id}`}>
+                                                            <Link to={`/update-quatation/${quatation?._id}`}>
 
                                                                 <FaEdit size={20}/>
 
