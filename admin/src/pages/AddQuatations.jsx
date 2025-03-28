@@ -39,8 +39,16 @@ export default function AddQuatations() {
   // handleItemsChange
   const handleItemsChange = (e) => {
 
-    setCurrentState({...currentState,[e.target.name]:e.target.value})
+    const {name,value} = e.target 
 
+    // Convert the value to a number if the input type is "number"
+    const newValue = (name === "quantity" || name === "price") ? Number(value) : value;
+
+    setCurrentState((prevState) => ({
+      ...prevState,
+      [name]: newValue,
+    }));
+    
   }
 
   // handleSubmit
@@ -183,7 +191,7 @@ export default function AddQuatations() {
             placeholder='type description here . . . . '
             onChange={handleChange}
             value={formData?.description}
-            className="input"
+            className="input h-80"
           />
 
         </div>
@@ -191,62 +199,69 @@ export default function AddQuatations() {
         {/* Items */}
         <div className="flex flex-col gap-y-2">
           
-          <label className="label">Add Items</label>
-
+          
           {/* table */}
           {formData?.items?.length > 0 && (
 
-            <div className="tabler">
+            <div className="border-2 border-slate-700 p-2 rounded-md">
 
-              <Table>
+              <h2 className="text-sm font-semibold text-center">ITEMS</h2>
 
-                <Table.Head>
+              <div className="tabler">
 
-                  <Table.HeadCell>ID</Table.HeadCell>
+                <Table>
 
-                  <Table.HeadCell>description</Table.HeadCell>
+                  <Table.Head>
 
-                  <Table.HeadCell>quantity</Table.HeadCell>
+                    <Table.HeadCell>ID</Table.HeadCell>
 
-                  <Table.HeadCell>price</Table.HeadCell>
+                    <Table.HeadCell>description</Table.HeadCell>
 
-                  <Table.HeadCell>Action</Table.HeadCell>
+                    <Table.HeadCell>quantity</Table.HeadCell>
 
-                </Table.Head>
+                    <Table.HeadCell>price</Table.HeadCell>
 
-                {formData?.items?.map((item,index) => (
+                    <Table.HeadCell>Action</Table.HeadCell>
 
-                  <Table.Body key={index}>
+                  </Table.Head>
 
-                    <Table.Row>
+                  {formData?.items?.map((item,index) => (
 
-                      <Table.Cell>{item?.id}</Table.Cell>
+                    <Table.Body key={index}>
 
-                      <Table.Cell>{item?.description}</Table.Cell>
+                      <Table.Row>
 
-                      <Table.Cell>{item?.quantity}</Table.Cell>
+                        <Table.Cell className="text-black font-semibold">{item?.id}</Table.Cell>
 
-                      <Table.Cell>{item?.price}</Table.Cell>
+                        <Table.Cell className="text-nowrap">{item?.description}</Table.Cell>
 
-                      <Table.Cell>
+                        <Table.Cell>{item?.quantity}</Table.Cell>
 
-                        <span className="text-red-600" onClick={() => handleRemoveItem(index)}>
-                          <FaTrashAlt size={20}/>
-                        </span>
+                        <Table.Cell>{item?.price}</Table.Cell>
 
-                      </Table.Cell>
+                        <Table.Cell>
 
-                    </Table.Row>
+                          <span className="text-red-600" onClick={() => handleRemoveItem(index)}>
+                            <FaTrashAlt size={20}/>
+                          </span>
 
-                  </Table.Body>
+                        </Table.Cell>
 
-                ))}
+                      </Table.Row>
 
-              </Table>
+                    </Table.Body>
+
+                  ))}
+
+                </Table>
+
+              </div>
 
             </div>
 
           )}
+
+          <label className="label">Add Items</label>
 
           {/* adding */}
           <div className="flex flex-col gap-y-2">
@@ -276,7 +291,7 @@ export default function AddQuatations() {
 
                 {/* quantity */}
                 <input 
-                  type="text" 
+                  type="number" 
                   placeholder="quantity"
                   value={currentState?.quantity}
                   name="quantity"
@@ -286,7 +301,7 @@ export default function AddQuatations() {
 
                 {/* price */}
                 <input 
-                  type="text" 
+                  type="Number" 
                   placeholder="price"
                   value={currentState?.price}
                   name="price"
@@ -344,7 +359,7 @@ export default function AddQuatations() {
             placeholder='type additional cost here . . . . '
             onChange={handleChange}
             value={formData?.additionalCost}
-            className="input"
+            className="input h-80"
           />
 
         </div>
@@ -359,7 +374,7 @@ export default function AddQuatations() {
             placeholder='type payment schedule here . . . . '
             onChange={handleChange}
             value={formData?.paymentSchedule}
-            className="input"
+            className="input h-80"
           />
 
         </div>
@@ -374,7 +389,7 @@ export default function AddQuatations() {
             placeholder='type warranty here . . . . '
             onChange={handleChange}
             value={formData?.warranty}
-            className="input"
+            className="input h-80"
           />
 
         </div>
@@ -389,7 +404,7 @@ export default function AddQuatations() {
             placeholder='type terms and condition here . . . . '
             onChange={handleChange}
             value={formData?.termsAndCondition}
-            className="input"
+            className="input h-80"
           />
 
         </div>
