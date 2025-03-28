@@ -7,6 +7,7 @@ import {Table} from "flowbite-react"
 import axios from 'axios'
 import Error from '../components/Error'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { toast } from 'sonner'
 
 
 
@@ -37,7 +38,30 @@ export default function Quatations() {
     }
 
     // handleDelete
-    const handleDelete = () => {}
+    const handleDelete = async () => {
+
+        try
+        {
+
+            const res = await axios.delete(url + `/api/quatation/delete-quatation/${quatationToDelete}`,{headers:{token}})
+
+            if(res.data.success)
+            {
+                setOpenDelete(false)
+
+                setQuatations((prev) => 
+                 prev.filter((quatation) => quatation._id !== quatationToDelete))
+                
+                toast.error("quatation is deleted successfully")
+            }
+
+        }
+        catch(error)
+        {
+            console.log(error.message)
+        }
+
+    }
 
     // fetchQuatation
     const fetchQuatation = async () => {
@@ -154,11 +178,11 @@ export default function Quatations() {
                                                     {quatation?.number}
                                                 </Table.Cell>
 
-                                                <Table.Cell className="text-nowrap">
+                                                <Table.Cell className="text-nowrap text-red-600 font-bold">
                                                     {quatation?.client?.name}
                                                 </Table.Cell>
 
-                                                <Table.Cell className="text-nowrap">
+                                                <Table.Cell className="text-nowrap text-orange-400">
                                                     {new Date(quatation?.validUntil).toLocaleString()}
                                                 </Table.Cell>
 
@@ -283,7 +307,7 @@ export default function Quatations() {
 
         {openDelete && (
 
-            <Delete handeDelete={handleDelete} product={"quatation"} item={quatation?.number} />
+            <Delete handleDelete={handleDelete} product={"quatation"} item={quatation?.number} />
 
         )}
     </>

@@ -171,7 +171,7 @@ export default function StoreContextProvider(props) {
 
       fetchProjects()
 
-      fetchProjects()
+      fetchClients()
 
       fetchQuatations()
       
@@ -186,10 +186,12 @@ export default function StoreContextProvider(props) {
 
     fetchProjects()
 
+    fetchQuatations()
+
   },[])
 
 
-  // console.log(clients)
+   console.log(quatations)
 
   // console.log(projects)
 

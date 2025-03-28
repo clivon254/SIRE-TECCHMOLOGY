@@ -46,7 +46,6 @@ export const generateQuatation = async (req,res,next) => {
 
         // ADD PDF CONTENT
       
- 
         doc.moveDown(2)
 
         // quatation title
