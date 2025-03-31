@@ -6,6 +6,8 @@ import {FiUsers} from "react-icons/fi"
 import axios from "axios"
 import { GoProject } from 'react-icons/go'
 import { ImFilesEmpty } from "react-icons/im";
+import { FaFileInvoiceDollar } from "react-icons/fa";
+
 
 
 
@@ -44,6 +46,11 @@ export default function StoreContextProvider(props) {
       path:'/quatations',
       title:"Quatations",
       icon:<ImFilesEmpty size={20}/>
+    },
+    {
+      path:'/invoices',
+      title:"Invoices",
+      icon:<FaFileInvoiceDollar size={20}/>
     }
 
   ])
@@ -66,6 +73,12 @@ export default function StoreContextProvider(props) {
   const [quatationsLoading , setQuatationsLoading] = useState(false)
 
   const [quatationsError , setQuatationsError] = useState(false)
+
+  const [invoices ,setInvoices] = useState([])
+
+  const [invoicesLoading ,setInvoicesLoading] = useState(false)
+
+  const [invoicesError ,setInvoicesError] = useState(false)
 
 
 
@@ -161,6 +174,35 @@ export default function StoreContextProvider(props) {
 
   }
 
+  // fetchInvoices
+  const fetchInvoices = async () => {
+
+    try
+    {
+      setInvoicesLoading(true)
+
+      setInvoicesError(false)
+
+      const res = await axios.get(url + "/api/invoice/get-invoices",{headers:{token}})
+
+      if(res.data.success)
+      {
+        setInvoicesLoading(false)
+
+        setInvoices(res.data.invoices)
+      }
+
+    }
+    catch(error)
+    {
+
+      setInvoicesLoading(false)
+
+      setInvoicesError(true)
+    }
+
+  }
+
 
   useEffect(() => {
 
@@ -174,6 +216,8 @@ export default function StoreContextProvider(props) {
       fetchClients()
 
       fetchQuatations()
+
+      fetchInvoices()
       
     }
 
@@ -188,10 +232,12 @@ export default function StoreContextProvider(props) {
 
     fetchQuatations()
 
+    fetchInvoices()
+
   },[])
 
 
-   console.log(quatations)
+   console.log(invoices)
 
   // console.log(projects)
 
@@ -216,6 +262,10 @@ export default function StoreContextProvider(props) {
     quatationsLoading, setQuatationsLoading,
     quatationsError, setQuatationsError,
     fetchQuatations,
+    invoices,setInvoices,
+    invoicesLoading,setInvoicesLoading,
+    invoicesError,setInvoicesError,
+    fetchInvoices
   }
   
 

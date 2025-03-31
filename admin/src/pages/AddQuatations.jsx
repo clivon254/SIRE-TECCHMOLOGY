@@ -100,7 +100,8 @@ export default function AddQuatations() {
   // handleAddItem
   const handleAddItem = async () => {
 
-      if(currentState?.id !== "" || currentState?.description !== "" || currentState?.quantity !== ""  || currentState?.price !== "")
+      if(currentState?.id !== "" || currentState?.description !== "" || currentState?.quantity !== ""  || currentState?.price !== "" || 
+        !currentState?.id || !currentState?.description || !currentState?.quantity || !currentState?.price)
       {
           setItemsError("please fill up all the places")
       }

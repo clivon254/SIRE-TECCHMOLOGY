@@ -13,7 +13,7 @@ invoiceRouter.post('/generate-invoice',verifyToken, generateInvoice)
 invoiceRouter.get('/get-invoice/:invoiceId', getInvoice)
 
 
-invoiceRouter.get('/get-invoices', getInvoices)
+invoiceRouter.get('/get-invoices', verifyToken, getInvoices)
 
 
 invoiceRouter.put('/update-invoice/:invoiceId', updateInvoice)

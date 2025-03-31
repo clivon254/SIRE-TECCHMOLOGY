@@ -183,7 +183,7 @@ export default function Quatations() {
                                                 </Table.Cell>
 
                                                 <Table.Cell className="text-nowrap text-orange-400">
-                                                    {new Date(quatation?.validUntil).toLocaleString()}
+                                                    {new Date(quatation?.validUntil).toLocaleDateString()}
                                                 </Table.Cell>
 
                                                 <Table.Cell>

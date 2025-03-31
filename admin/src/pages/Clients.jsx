@@ -162,7 +162,7 @@ export default function Clients() {
 
             </header>
 
-            {/* search */}``
+            {/* search */}
             <div className="flex justify-between items-center gap-x-5">
 
                 <input 

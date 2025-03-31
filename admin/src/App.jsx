@@ -23,6 +23,10 @@ import Quatations from './pages/Quatations'
 import AddQuatations from './pages/AddQuatations'
 import UpdateQuatations from './pages/UpdateQuatations'
 import QuatationPage from './pages/QuatationPage'
+import Invoivces from './pages/Invoivces'
+import AddInvoice from './pages/AddInvoice'
+import UpdateInvoice from './pages/UpdateInvoice'
+import InvoicePage from './pages/InvoicePage'
 
 
 
@@ -110,6 +114,14 @@ export default function App() {
                 <Route path="/update-quatation/:quatationId" element={<UpdateQuatations/>}/>
 
                 <Route path="/quatation/:quatationId" element={<QuatationPage/>}/>
+
+                <Route path="/invoices" element={<Invoivces/>}/>
+
+                <Route path="/add-invoice" element={<AddInvoice/>}/>
+
+                <Route path="/update-invoice/:invoiceId" element={<UpdateInvoice/>}/>
+
+                <Route path="/invoice/:invoiceId" element={<InvoicePage/>}/>
 
             </Route>
 
