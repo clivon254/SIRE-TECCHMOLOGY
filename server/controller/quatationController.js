@@ -22,6 +22,11 @@ export const generateQuatation = async (req,res,next) => {
 
     const {client,validUntil,description,items,paymentSchedule,additionalCost,termsAndCondition,warranty} = req.body
 
+    if(!items || items === "")
+    {
+        return next(errorHandler(400,"please enter the item"))
+    }
+
     try
     {
 
@@ -66,7 +71,7 @@ export const generateQuatation = async (req,res,next) => {
         doc.moveDown()
 
         // description
-        doc.fontSize(14).text(`${description}`)
+        doc.fontSize(12).text(`${description}`)
 
 
         // Items table
@@ -147,11 +152,74 @@ export const generateQuatation = async (req,res,next) => {
         doc.text('Total:', totalLabelX, y);
         doc.text(`$${total.toFixed(2)}`, totalValueX, y);
 
-
         // Reset font
         doc.font('Helvetica');
 
-        doc.text(`Thank you for choosing SIRE Solutions for your web development needs!`)
+        // Add space after totals
+        y += 40;
+
+        // ADDITIONAL COST
+        doc.fontSize(12).text(`${additionalCost}`, 50, y);
+
+        // Add space before next section
+        y += 50;
+
+        // Payment schedule section
+        doc.fontSize(12).text(`${paymentSchedule}`, 50, y);
+
+        // Add space before next section
+        y += 50;
+
+        // Warranty section
+        doc.fontSize(12).text(`${warranty}`, 50, y );
+
+        // Add space before next section
+        y += 50;
+
+        // Terms and conditions section
+        doc.fontSize(12).text(`${termsAndCondition}`, 70, y);
+
+        
+        // Add some space before the signature section
+        doc.moveDown(4);
+
+        // Add signature line
+        const signatureX = 100;
+        const signatureWidth = 200;
+        const signatureY = doc.y;
+
+        // Draw the signature line
+        doc.moveTo(signatureX, signatureY)
+        .lineTo(signatureX + signatureWidth, signatureY)
+        .stroke();
+
+        // Add text under the signature line
+        doc.fontSize(10).text('Client Signature', signatureX, signatureY + 5, {
+        width: signatureWidth,
+        align: 'center'
+        });
+
+        // Add date line
+        const dateX = 350;
+        const dateWidth = 150;
+
+        // Draw the date line
+        doc.moveTo(dateX, signatureY)
+        .lineTo(dateX + dateWidth, signatureY)
+        .stroke();
+
+        // Add text under the date line
+        doc.text('Date', dateX, signatureY + 5, {
+        width: dateWidth,
+        align: 'center'
+        });
+
+        // Optional: Add text above signature lines
+        doc.fontSize(12).text('I accept this quotation and agree to the terms and conditions.', 100, signatureY - 30, {
+        width: 400
+        });
+
+    
     
         // After adding all these sections, check if we need a new page before signature
         if (doc.y > 700) {

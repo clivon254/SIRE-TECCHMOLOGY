@@ -6,7 +6,7 @@ import { IoMdAdd } from 'react-icons/io'
 import {Table} from "flowbite-react"
 import axios from 'axios'
 import Error from '../components/Error'
-import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { FaEdit, FaFileDownload, FaTrashAlt } from 'react-icons/fa'
 import { toast } from 'sonner'
 
 
@@ -190,6 +190,15 @@ export default function Quatations() {
 
                                                     <div className="flex items-center gap-x-3">
 
+                                                        <span className="text-blue/50">
+
+                                                            <a href={quatation?.url} target='_blank' className="">
+
+                                                                <FaFileDownload size={20}/>
+
+                                                            </a>
+
+                                                        </span>
 
                                                         <span className="">
 
