@@ -71,7 +71,7 @@ export const generateInvoice = async (req,res,next) => {
 
 
         // quatation details
-        doc.fontSize(14).text(`Invoice Number : IN-${invoiceNumber}`)
+        doc.fontSize(14).text(`Invoice invoiceNumber : IN-${invoiceNumber}`)
         doc.text(`Date : ${new Date().toLocaleDateString()}`)
         doc.text(`To : ${clientel.name || 'N/A' }`)
         doc.text(`Email: ${clientel.email || 'N/A'}`)
@@ -193,7 +193,7 @@ export const generateInvoice = async (req,res,next) => {
 
 
         // Upload the PDF to firebase Storage
-        const storageRef = ref(storage , `quatation/${number}.pdf`)
+        const storageRef = ref(storage , `/${invoiceNumber}.pdf`)
 
 
         // upload buffer to firebase
@@ -251,7 +251,7 @@ export const getInvoices = async (req,res,next) => {
 
     try
     {
-        const invoices = await Invoice.find().sort({_id:-1})
+        const invoices = await Invoice.find().sort({_id:-1}).populate({path:"client"})
 
         res.status(200).json({success:true , invoices})
 

@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {IoMdAdd} from "react-icons/io"
 import { Table, TableHead } from 'flowbite-react'
 import Error from '../components/Error'
-import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { FaEdit, FaRegFilePdf, FaTrashAlt } from 'react-icons/fa'
 
 
 
@@ -34,7 +34,16 @@ export default function Invoivces() {
 
 
   // handleSearch
-  const handleSearch = async () => {}
+  const handleSearch = async (e) => {
+
+    const searchInvoice = e.target.value 
+
+    const filtered = invoices?.filter((invoice) => invoice.email.toLowerCase().includes(searchInvoice.toLowerCase()))
+
+    setFilteredInvoices(filtered)
+
+  }
+
 
   // handleDelete
   const handleDelete = async () => {
@@ -48,10 +57,11 @@ export default function Invoivces() {
                 setOpenDelete(false)
 
                 setInvoices((prev) => 
-                    prev.filter((invoice) => invoice._id !== invoiceToDelete)
+                    prev.filter((invoice) => invoiceToDelete !== invoice._id )
                 )
 
                 toast.failure(`invoice deleted successfuly`)
+
             }
 
         }
@@ -62,6 +72,7 @@ export default function Invoivces() {
         }
 
   }
+
 
   //fetchInvoice
   const fetchInvoice = async () => {
@@ -100,6 +111,9 @@ export default function Invoivces() {
     fetchInvoice()
 
   },[invoiceToDelete])
+
+  
+
 
   return (
 
@@ -166,7 +180,7 @@ export default function Invoivces() {
 
                     </TableHead>
 
-                    {invoicesLoading && invoicesError && ( 
+                    {!invoicesLoading && !invoicesError && ( 
 
                         <>
 
@@ -181,24 +195,34 @@ export default function Invoivces() {
 
                                             <Table.Row>
 
-                                                <Table.Cell>{invoice?.number}</Table.Cell>
+                                                <Table.Cell className="text-black font-semibold">{invoice?.invoiceNumber}</Table.Cell>
 
-                                                <Table.Cell>{invoice?.client?.name}</Table.Cell>
+                                                <Table.Cell className="text-nowrap">{invoice?.client?.name}</Table.Cell>
 
                                                 <Table.Cell>{new Date(invoice?.duePayment).toLocaleDateString()}</Table.Cell>
 
                                                 <Table.Cell>
 
-                                                    <div className="flex items-center">
+                                                    <div className="flex items-center gap-x-3">
 
-                                                        <span className="" onClick={() => navigate(`/update-invoice/${invoiceToDelete}`)}>
+                                                        <span className="cursor-pointer">
+                                                            
+                                                            <a href={invoice?.url} target='_blank' className="text-emerald-400">
 
-                                                            <FaEdit />
+                                                                <FaRegFilePdf size={20}/>
+
+                                                            </a>
+
+                                                        </span>
+
+                                                        <span className="cursor-pointer text-blue" onClick={() => navigate(`/update-invoice/${invoice._id}`)}>
+
+                                                            <FaEdit size={20}/>
 
                                                         </span>
 
                                                         <span 
-                                                            className="" 
+                                                            className="text-red-500 cursor-pointer" 
                                                             onClick={() => {
                                                                 
                                                                 setOpenDelete(true)
@@ -208,7 +232,7 @@ export default function Invoivces() {
                                                             }}
                                                         >
 
-                                                            <FaTrashAlt />
+                                                            <FaTrashAlt size={20}/>
 
                                                         </span>
 
@@ -232,7 +256,7 @@ export default function Invoivces() {
                                     
                                     <Table.Row>
 
-                                        <Table.Cell colSpan={4} className="text-center">
+                                        <Table.Cell colSpan={4} className="text-center text-xl font-semibold">
                                             There are no invoices yet !!!
                                         </Table.Cell>
                                         
@@ -324,7 +348,7 @@ export default function Invoivces() {
 
         {openDelete && (
 
-            <Delete handleDelete={handleDelete} product={"Invoice"} item={invoice?.number}/>
+            <Delete handleDelete={handleDelete} product={"Invoice"} item={invoice?.invoiceNumber}/>
 
         )}
 

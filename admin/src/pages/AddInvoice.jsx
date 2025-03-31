@@ -72,11 +72,11 @@ export default function AddInvoice() {
       {
         setLoading(false)
 
-        navigate(-1)
+        navigate('/invoices')
 
         fetchInvoices()
 
-        toast.success(`invoice ${newInvoice?.number} added successfully`)
+        toast.success(`invoice ${res.data.newInvoice?.invoiceNumber} added successfully`)
 
       }
 
@@ -210,14 +210,14 @@ export default function AddInvoice() {
 
               </div>
 
-              {/* project */}
+              {/* reference */}
               <div className="flex flex-col gap-y-2">
 
                 <label htmlFor="" className="label">quatation number</label>
 
                 <select 
-                  name="quatation"
-                  value={formData?.quatation}
+                  name="reference"
+                  value={formData?.reference}
                   onChange={handleChange}
                   className="input"
                 >
@@ -242,9 +242,9 @@ export default function AddInvoice() {
                 <input 
                   type="date" 
                   placeholder='type quatation number ....'
-                  name="date"
+                  name="duePayment"
                   onChange={handleChange}
-                  value={formData?.date}
+                  value={formData?.duePayment}
                   className="input" 
                 />
 

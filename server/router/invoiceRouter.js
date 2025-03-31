@@ -16,10 +16,10 @@ invoiceRouter.get('/get-invoice/:invoiceId', getInvoice)
 invoiceRouter.get('/get-invoices', verifyToken, getInvoices)
 
 
-invoiceRouter.put('/update-invoice/:invoiceId', updateInvoice)
+invoiceRouter.put('/update-invoice/:invoiceId',verifyToken , updateInvoice)
 
 
-invoiceRouter.get('/delete-invoice/:invoiceId', deleteInvoice)
+invoiceRouter.delete('/delete-invoice/:invoiceId',verifyToken , deleteInvoice)
 
 
 
