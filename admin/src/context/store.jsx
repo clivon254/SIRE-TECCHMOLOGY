@@ -79,6 +79,12 @@ export default function StoreContextProvider(props) {
 
   const [invoicesError ,setInvoicesError] = useState(false)
 
+  const [stats ,setStats] = useState({})
+
+  const [statsLoading , setStatsLoading] = useState(false)
+
+  const [statsError , setStatsError] = useState(false)
+
 
 
   // fetchClients
@@ -202,6 +208,37 @@ export default function StoreContextProvider(props) {
 
   }
 
+  // fetchStats
+  const fetchStats = async () => {
+
+    try
+    {
+        setStatsError(null)
+
+        setStatsLoading(true)
+
+        const res = await axios.get(url + `/api/stats/get-stat`,{headers:{token}})
+
+        if(res.data.success)
+        {
+          setStatsLoading(false)
+
+          setStats(res.data)
+        }
+
+    }
+    catch(error)
+    {
+
+      setStatsError(true)
+
+      setStatsLoading(false)
+
+      console.log(error.message)
+    }
+
+  }
+
 
   useEffect(() => {
 
@@ -217,6 +254,8 @@ export default function StoreContextProvider(props) {
       fetchQuatations()
 
       fetchInvoices()
+
+      fetchStats()
       
     }
 
@@ -236,7 +275,7 @@ export default function StoreContextProvider(props) {
   },[])
 
 
-   console.log(invoices)
+   console.log(stats)
 
   // console.log(projects)
 
@@ -264,7 +303,11 @@ export default function StoreContextProvider(props) {
     invoices,setInvoices,
     invoicesLoading,setInvoicesLoading,
     invoicesError,setInvoicesError,
-    fetchInvoices
+    fetchInvoices,
+    stats, setStats,
+    statsLoading, setStatsLoading,
+    statsError, setStatsError,
+    fetchStats,
   }
   
 

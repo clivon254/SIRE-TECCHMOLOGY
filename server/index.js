@@ -9,6 +9,7 @@ import clientRouter from "./router/clientRouter.js"
 import projectRouter from "./router/projectRouter.js"
 import quatationRouter from "./router/quatationRouter.js"
 import invoiceRouter from "./router/invoiceRouter.js"
+import statRouter from "./router/statsRouter.js"
 
 
 
@@ -50,6 +51,9 @@ app.use('/api/quatation', quatationRouter)
 
 
 app.use('/api/invoice', invoiceRouter)
+
+
+app.use('/api/stats' , statRouter)
 
 
 
